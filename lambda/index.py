@@ -19,7 +19,7 @@ def extract_region_from_arn(arn):
 bedrock_client = None
 
 
-url = "https://f4d3-34-87-136-190.ngrok-free.app//generate"
+url = "https://f4d3-34-87-136-190.ngrok-free.app/generate"
 
 
 
