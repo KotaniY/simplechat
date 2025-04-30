@@ -16,10 +16,10 @@ def extract_region_from_arn(arn):
     return "us-east-1"  # デフォルト値
 
 # グローバル変数としてクライアントを初期化（初期値）
-# bedrock_client = None
+bedrock_client = None
 
 
-url = "https://fb41-34-87-136-190.ngrok-free.app//generate"
+url = "https://f4d3-34-87-136-190.ngrok-free.app//generate"
 
 
 
