@@ -18,11 +18,9 @@ def extract_region_from_arn(arn):
 # グローバル変数としてクライアントを初期化（初期値）
 bedrock_client = None
 
-# モデルID
-MODEL_ID = os.environ.get("MODEL_ID", "us.amazon.nova-lite-v1:0")
+MODEL_ID = "https://fb41-34-87-136-190.ngrok-free.app/"
 
-# Google Colab で立てた API の URL（ngrokのURLに置き換えてください）
-COLAB_API_URL = os.environ.get("COLAB_API_URL", "https://fb41-34-87-136-190.ngrok-free.app//generate")
+url = "https://fb41-34-87-136-190.ngrok-free.app//generate"
 
 
 
@@ -42,7 +40,7 @@ def lambda_handler(event, context):
 
         # リクエストの準備
         req = urllib.request.Request(
-            url=COLAB_API_URL,
+            url=url,
             data=data,
             headers={"Content-Type": "application/json"},
             method="POST"
