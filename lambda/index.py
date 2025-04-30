@@ -16,9 +16,8 @@ def extract_region_from_arn(arn):
     return "us-east-1"  # デフォルト値
 
 # グローバル変数としてクライアントを初期化（初期値）
-bedrock_client = None
+# bedrock_client = None
 
-MODEL_ID = "https://fb41-34-87-136-190.ngrok-free.app/"
 
 url = "https://fb41-34-87-136-190.ngrok-free.app//generate"
 
@@ -32,11 +31,15 @@ def lambda_handler(event, context):
         body = json.loads(event['body'])
         message = body['message']
 
-        # Colab に送るJSONデータを構築
+        # LLM APIに送るJSONデータ
         data = json.dumps({
-            "message": message,
-            "conversationHistory": []
+            "prompt": message,
+            "max_new_tokens": 128,
+            "do_sample": True,
+            "temperature": 0.7,
+            "top_p": 0.9
         }).encode("utf-8")
+
 
         # リクエストの準備
         req = urllib.request.Request(
@@ -52,7 +55,7 @@ def lambda_handler(event, context):
             response_json = json.loads(response_body.decode("utf-8"))
             print("API response:", response_json)
 
-        # Lambda のレスポンスとして返す
+        # Lambdaのレスポンスとして返す
         return {
             "statusCode": 200,
             "headers": {
@@ -63,8 +66,8 @@ def lambda_handler(event, context):
             },
             "body": json.dumps({
                 "success": True,
-                "response": response_json.get("response", ""),
-                "conversationHistory": response_json.get("conversationHistory", [])
+                "response": response_json.get("generated_text", ""),
+                "response_time": response_json.get("response_time", 0.0)
             })
         }
 
